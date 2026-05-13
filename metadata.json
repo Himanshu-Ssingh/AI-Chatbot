@@ -1,0 +1,6 @@
+{
+  "name": "DriveQuest AI",
+  "description": "A conversational AI assistant that helps you discover and search files in your Google Drive using natural language.",
+  "requestFramePermissions": [],
+  "majorCapabilities": []
+}
