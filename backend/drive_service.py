@@ -7,8 +7,13 @@ from dotenv import load_dotenv
 load_dotenv()
 
 SCOPES = ['https://www.googleapis.com/auth/drive.readonly']
+_drive_service = None
 
 def get_drive_service():
+    global _drive_service
+    if _drive_service is not None:
+        return _drive_service
+        
     email = os.environ.get("GOOGLE_SERVICE_ACCOUNT_EMAIL")
     private_key = os.environ.get("GOOGLE_PRIVATE_KEY")
     
@@ -26,7 +31,8 @@ def get_drive_service():
         scopes=SCOPES
     )
     
-    return build('drive', 'v3', credentials=credentials)
+    _drive_service = build('drive', 'v3', credentials=credentials, cache_discovery=False)
+    return _drive_service
 
 def search_files(query: str, folder_id: str = None) -> list:
     """Search Google Drive for files matching the query."""
